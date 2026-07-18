@@ -20,3 +20,4 @@ For this game I am starting with a landing page which will consist of the follow
 max-width:40ch;
 ```
 This above codes helps restrcting a paragraph to break it into 2 lines so it does not take the entire width of the page rather than <br/>
+I learnt how to use flex to re-order the flow of a document bu first setting the parent container as a flex-column then using order: 1; on the children.
