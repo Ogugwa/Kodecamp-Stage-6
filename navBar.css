@@ -1,0 +1,28 @@
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem;
+    background: #333;
+    color: #fff;
+    width:100%;
+}
+nav ul{
+    display:flex;
+    list-style:none;
+    justify-content:space-between;
+    gap:1rem;
+    margin-right:3rem;
+}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    nav ul {
+        margin-right: 0;
+    }
+}
+/* Tablet Responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+    nav ul {
+        margin-right:2rem;
+    }
+}
