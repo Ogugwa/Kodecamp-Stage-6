@@ -82,6 +82,65 @@ const questionList =[
             "Mercury"
         ],
         answer: "Mars",
+    },
+    {
+        question:"Which is the largest ocean on Earth?",
+        options:[
+            "Atlantic Ocean",
+            "Pacific Ocean",
+            "Indian Ocean",
+            "Arctic Ocean",
+        ],
+        answer: "Pacific Ocean",
+    },
+    {
+        question: "How many continents are there?",
+        options:[
+            "5",
+            "6",
+            "7",
+            "8",
+        ],
+        answer: "7",
+    },
+    {
+        question: "Which animal is known as the King of the Jungle?",
+        options:[
+            "Tiger",
+            "Leopard",
+            "Lion",
+            "Cheetah",
+        ],
+    },
+    {
+        question:"What is the capital city of Canada?",
+        options:[
+            "Toronto",
+            "Vancouver",
+            "Montreal",
+            "Ottawa",
+        ],
+        answer: "Ottawa",
+    },
+    {
+        question:"Which gas do humans breathe in to survive?",
+        options:[
+            "Carbon Dioxide",
+            "Oxygen",
+            "Nitrogen",
+            "Hydrogen",
+        ],
+        answer: "Oxygen",
+    },
+    {
+        question:"Which instrument measures temperature?",
+        options:[
+            "Barometer",
+            "Thermometer",
+            "Speedometer",
+            "Hygrometer",
+        ],
+        answer: "Thermometer",
     }
 ];
 let currentQuestion = 0;
