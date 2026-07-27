@@ -5,6 +5,9 @@ const questionBoard= document.getElementById("question-counter");
 const Result = document.getElementById("result");
 const resetBtn = document.querySelector(".reset");
 const startBtn = document.querySelector(".startBtn");
+const questionH3= document.getElementById("question");
+const btnControl = document.querySelector(".btnControl");
+const answerReset =answerList.querySelectorAll("li");
 // Empty State
 // Adding event listener to the empty state
 let scores =0; 
@@ -28,15 +31,17 @@ answerList.addEventListener("click", (e)=>{
 // scoreBoard.textContent = scores;
 // Reset button function
 function Reset (){
-    score =0;
+    scores =0;
     selected= false;
 questionBoard.textContent ="0 of 0";
 scoreBoard.textContent ="0";
 Result.textContent= "";
-const answerReset =answerList.querySelectorAll("li");
 answerReset.forEach(answer =>{
  answer.style.backgroundColor = "";
  answerList.style.pointerEvents = "auto";
+ if (questionH3.textContent === "" && answerList.textContent === "") {
+    window.location.reload();
+}
 });
 
 }
@@ -111,6 +116,7 @@ const questionList =[
             "Lion",
             "Cheetah",
         ],
+        answer: "Lion",
     },
     {
         question:"What is the capital city of Canada?",
@@ -144,9 +150,31 @@ const questionList =[
     }
 ];
 let currentQuestion = 0;
-// Function to clear the
+
+// Function to clear the question section once start is clicked
+function clear (){
+startBtn.classList ="hide";
+btnControl.classList.remove("hide");
+}
+// Function to display question once startBtn is clicked
+function displayQuestion(){
+    const current= questionList[currentQuestion];
+questionH3.textContent =current.question;
+answerReset.forEach((li,index) => {
+li.textContent = current.options[index];
+    
+});
+console.log(current);
+console.log(questionH3);
+console.log(answerReset.length);
+
+}
+
+
 // Adding event Listener to the Start button to stop the demo and move to the game
 startBtn.addEventListener("click", ()=>{
     console.log("Start button clicked");
     Reset();
+    setTimeout(clear,500);
+    displayQuestion();
 })
