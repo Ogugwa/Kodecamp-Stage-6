@@ -144,7 +144,9 @@ const questionList =[
     }
 ];
 let currentQuestion = 0;
+// Function to clear the
 // Adding event Listener to the Start button to stop the demo and move to the game
 startBtn.addEventListener("click", ()=>{
     console.log("Start button clicked");
+    Reset();
 })
