@@ -7,46 +7,6 @@ const resetBtn = document.querySelector(".reset");
 const startBtn = document.querySelector(".startBtn");
 const questionH3= document.getElementById("question");
 const btnControl = document.querySelector(".btnControl");
-const answerReset =answerList.querySelectorAll("li");
-// Empty State
-// Adding event listener to the empty state
-let scores =0; 
-let selected = false;
-answerList.addEventListener("click", (e)=>{
-       if (selected) return;
-           selected= true;
-    questionBoard.textContent= "1 of 1";
-    answerList.style.pointerEvents = "none";
-       if(e.target.textContent ==="Saturn"){
-        e.target.style.backgroundColor ="green";
-        scores++;
-        scoreBoard.textContent = scores;
-    }else{
-        e.target.style.backgroundColor ="red";
-        Result.textContent= "Answer is Saturn";
-    }
-    
-});
-
-// scoreBoard.textContent = scores;
-// Reset button function
-function Reset (){
-    scores =0;
-    selected= false;
-questionBoard.textContent ="0 of 0";
-scoreBoard.textContent ="0";
-Result.textContent= "";
-answerReset.forEach(answer =>{
- answer.style.backgroundColor = "";
- answerList.style.pointerEvents = "auto";
- if (questionH3.textContent === "" && answerList.textContent === "") {
-    window.location.reload();
-}
-});
-
-}
-resetBtn.addEventListener("click",Reset);
-// Creating the array of questions
 const questionList =[
       {
         question: "Which planet has the most moons in our solar system?",
@@ -150,6 +110,45 @@ const questionList =[
     }
 ];
 let currentQuestion = 0;
+ 
+// const answerReset =answerList.querySelectorAll("li");
+// Empty State
+// Adding event listener to the empty state
+let scores =0; 
+let selected = false;
+
+answerList.addEventListener("click", (e)=>{
+    const current= questionList[currentQuestion];
+       if (selected) return;
+           selected= true;
+    questionBoard.textContent= "1 of 1";
+    // answerList.style.pointerEvents = "none";    
+       if(e.target.textContent ===`${current.answer}`){
+        e.target.style.backgroundColor ="green";
+        scores++;
+        scoreBoard.textContent = scores;
+    }else{
+        e.target.style.backgroundColor ="red";
+        Result.textContent= `Answer is ${current.answer}`;
+    }
+    
+});
+
+// scoreBoard.textContent = scores;
+// Reset button function
+function Reset (){
+    scores =0;
+    currentQuestion =0;
+    selected= false;
+// questionBoard.textContent ="0 of 0";
+scoreBoard.textContent ="0";
+Result.textContent= "";
+displayQuestion();
+
+}
+resetBtn.addEventListener("click",Reset);
+// Creating the array of questions
+
 
 // Function to clear the question section once start is clicked
 function clear (){
@@ -160,21 +159,24 @@ btnControl.classList.remove("hide");
 function displayQuestion(){
     const current= questionList[currentQuestion];
 questionH3.textContent =current.question;
-answerReset.forEach((li,index) => {
-li.textContent = current.options[index];
+answerList.textContent="";
+current.options.forEach((option,index) => {
+        const listItem = document.createElement("li");
+        listItem;
+        listItem.append(option);
+        answerList.appendChild(listItem);
     
 });
+const questionCounter =`${currentQuestion + 1} of ${questionList.length}`;
 console.log(current);
 console.log(questionH3);
-console.log(answerReset.length);
+
 
 }
-
 
 // Adding event Listener to the Start button to stop the demo and move to the game
 startBtn.addEventListener("click", ()=>{
     console.log("Start button clicked");
-    Reset();
-    setTimeout(clear,500);
+     setTimeout(clear,500);
     displayQuestion();
 })

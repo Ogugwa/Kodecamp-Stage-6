@@ -12,7 +12,15 @@
 ## Structure
 For this game I am starting with a landing page which will consist of the following:
 1. A navabar
-2. A Hero section
+2. A Hero section which has a start button that redirects to the game page
+I built a separate quiz.html page that has the UI of the game
+The Quiz page consists of
+1. A Navbar for navigation
+2. A Question number display box
+3. A score card display box
+4. A reset button to reset the code
+5. Start Button to start the game
+
 
 
 ## New Learnings
@@ -21,3 +29,6 @@ max-width:40ch;
 ```
 This above codes helps restrcting a paragraph to break it into 2 lines so it does not take the entire width of the page rather than <br/>
 I learnt how to use flex to re-order the flow of a document bu first setting the parent container as a flex-column then using order: 1; on the children.
+
+### Javascript Logic
+I originally hardcoded a demo of the quiz game where I manually inputted the answers and checked if it was correct, however as I added an array of objects the demo logic and game flow where conflicting so I had to choose one. Continuing the demo logic conflicts with "Do Not Repeat" coding role so I chose the later.
