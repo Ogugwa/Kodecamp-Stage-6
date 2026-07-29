@@ -7,6 +7,9 @@ const resetBtn = document.querySelector(".reset");
 const startBtn = document.querySelector(".startBtn");
 const questionH3= document.getElementById("question");
 const btnControl = document.querySelector(".btnControl");
+const nextButton =document.querySelector(".nextBtn");
+const prevButton =document.querySelector(".prevBtn");
+
 const questionList =[
       {
         question: "Which planet has the most moons in our solar system?",
@@ -109,52 +112,21 @@ const questionList =[
         answer: "Thermometer",
     }
 ];
-let currentQuestion = 0;
- 
-// const answerReset =answerList.querySelectorAll("li");
 // Empty State
-// Adding event listener to the empty state
+let currentQuestion = 0; 
 let scores =0; 
 let selected = false;
-
-answerList.addEventListener("click", (e)=>{
-    const current= questionList[currentQuestion];
-       if (selected) return;
-           selected= true;
-    questionBoard.textContent= "1 of 1";
-    // answerList.style.pointerEvents = "none";    
-       if(e.target.textContent ===`${current.answer}`){
-        e.target.style.backgroundColor ="green";
-        scores++;
-        scoreBoard.textContent = scores;
-    }else{
-        e.target.style.backgroundColor ="red";
-        Result.textContent= `Answer is ${current.answer}`;
+// Start Game
+startBtn.addEventListener("click", ()=>{
+    if(startBtn.textContent === "Play Again"){
+        Reset();
     }
-    
-});
-
-// scoreBoard.textContent = scores;
-// Reset button function
-function Reset (){
-    scores =0;
-    currentQuestion =0;
-    selected= false;
-// questionBoard.textContent ="0 of 0";
-scoreBoard.textContent ="0";
-Result.textContent= "";
-displayQuestion();
-
-}
-resetBtn.addEventListener("click",Reset);
-// Creating the array of questions
-
-
-// Function to clear the question section once start is clicked
-function clear (){
-startBtn.classList ="hide";
-btnControl.classList.remove("hide");
-}
+        clearStartBtn();
+     // Using sort to shuffle the questions so it can appear random on each start iteration
+     questionList.sort(() => Math.random() - 0.5);
+     currentQuestion= 0;
+    displayQuestion();
+})
 // Function to display question once startBtn is clicked
 function displayQuestion(){
     const current= questionList[currentQuestion];
@@ -162,21 +134,117 @@ questionH3.textContent =current.question;
 answerList.textContent="";
 current.options.forEach((option,index) => {
         const listItem = document.createElement("li");
-        listItem;
         listItem.append(option);
         answerList.appendChild(listItem);
+
     
 });
 const questionCounter =`${currentQuestion + 1} of ${questionList.length}`;
-console.log(current);
-console.log(questionH3);
+questionBoard.textContent=questionCounter;
+}
+// Checking for Answers
+answerList.addEventListener("click", (e)=>{   
+    checkAnswer(e);
+    }
+    
+);
+function checkAnswer(e){
+    // The first line is because somehow the whole container gets highlighted 
+      if (e.target.tagName !== "LI") return;
+    if(selected) return;
+     selected= true;
+    const current = questionList[currentQuestion];
+    // answer checking goes here
+    if(e.target.textContent === current.answer){
+        e.target.style.backgroundColor ="green";
+       scores++;
+             scoreBoard.textContent = scores;
+        
+    }else{
+        e.target.style.backgroundColor ="red";
+      Result.textContent= `Correct Answer: ${current.answer}`;
+    }
 
+//    This code prevents users from being able to select another option
+    const allAnswers = answerList.querySelectorAll("li");
+    allAnswers.forEach((answer, index)=>{
+        if(answer.textContent === current.answer){
+            answer.style.backgroundColor = "green";
+        
+             
+        }else{
+        
+              
+        }
+        
+    });
+    console.log(e.target);
+console.log(e.target.tagName);
+}
+    
+// Next Button
+nextButton.addEventListener("click",(e)=>{
+    if (selected === false){
+        alert("Please attempt to answer the current question first");
+        return;
+    }
+    if(currentQuestion < questionList.length-1){
+         currentQuestion++;
+         selected= false;
+         Result.textContent="";
+         displayQuestion();
+    }
+   else{
+     questionH3.textContent = " Quiz Complete!";
+    answerList.textContent = "";
+    Result.textContent = `You scored ${scores} out of ${questionList.length}`;
+    playAgain();
+        // alert("No more question");
+   }
+   
+    
+});
+// Previous Button
+prevButton.addEventListener("click",(e)=>{
+    if(currentQuestion > 0){
+         currentQuestion--;
+         selected= false;
+         Result.textContent="";
+         displayQuestion();
+    }
+   else{
+   
+        alert("No Previous Question");
+   }
+   
+    
+});
+// Reset button function
+function Reset (){
+    scores =0;
+    currentQuestion =0;
+    selected= false;
+scoreBoard.textContent ="0";
+Result.textContent= "";
+displayQuestion();
 
+}
+resetBtn.addEventListener("click",Reset);
+
+// Function to clear the question section once start is clicked
+function clearStartBtn (){
+startBtn.classList.add("hide");
+btnControl.classList.remove("hide");
+}
+// Function to remove Prev and Next buttons at the end of the game and put a Play Again buttom
+function playAgain(){
+btnControl.classList.add("hide");
+startBtn.textContent="Play Again"
+startBtn.classList.remove("hide");
 }
 
 // Adding event Listener to the Start button to stop the demo and move to the game
-startBtn.addEventListener("click", ()=>{
-    console.log("Start button clicked");
-     setTimeout(clear,500);
-    displayQuestion();
-})
+
+// Function to check answer that way it can be called into the event listener
+
+
